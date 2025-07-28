@@ -21,9 +21,9 @@ func importData(path string, structure *Invoice, flags *pflag.FlagSet) error {
 	var byteBuffer [][]byte
 	flags.Visit(func(f *pflag.Flag) {
 		if f.Value.Type() != "string" {
-			b = []byte(fmt.Sprintf(`{"%s":%s}`, f.Name, f.Value))
+			b = fmt.Appendf(b, `{"%s":%s}`, f.Name, f.Value)
 		} else {
-			b = []byte(fmt.Sprintf(`{"%s":"%s"}`, f.Name, f.Value))
+			b = fmt.Appendf(b, `{"%s":"%s"}`, f.Name, f.Value)
 		}
 		byteBuffer = append(byteBuffer, b)
 	})
